@@ -1,0 +1,6 @@
+cliente,0,Gabriel,123123,Tenente
+cliente,1,Anderson,12313,Tenente
+cliente,2,Erika,123123213,Tenente
+produto,0,cal‡a moderna,1230,1.0,Calca,13
+categoria,Calca
+categoria,Short
