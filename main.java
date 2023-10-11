@@ -86,6 +86,8 @@ public class main {
                                     sc.nextLine();
 
                                     if (id >= 0 && id < categorias.size()) { // verifica se o id existe
+                                        
+                                        
                                         System.out.printf("Nome do Produto: ");
                                         nomeProduto = sc.nextLine();
 
@@ -943,7 +945,6 @@ public class main {
                     opcaoInvalida();
                     break;
             }
-        sc.close();
         }
 
     }
@@ -1017,7 +1018,6 @@ public class main {
             } while (minusculo != 's' && minusculo != 'n');
             confirmacao = minusculo;
         }
-        sc.close();
         return confirmacao;
     }
 
