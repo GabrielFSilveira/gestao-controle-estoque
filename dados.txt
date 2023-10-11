@@ -1,9 +1,11 @@
 cliente,0,Gabriel,123123,Tenente
 cliente,1,Anderson,12313,Tenente
 cliente,2,Erika,123123213,Tenente
-produto,0,Calca moderda,170,15.5,Calca,15/10/2001
+produto,0,Camisa polo,150,12.0,Camisetas,12/15/2001
 venda,0,0,20/21/2001,15,Erika
 fornecedor,0,Gabriel Fernandes,12321313,Tenente,Calca
 fornecedor,1,Erika Louise,123213423,Tenente,Short
-categoria,Calca
+categoria,Calcinha
 categoria,Short
+categoria,Camisetas
+categoria,Bone

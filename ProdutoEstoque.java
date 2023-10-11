@@ -76,7 +76,9 @@ public class ProdutoEstoque {
 
     /* Método para mostrar os produtos */
     public static void mostrarProdutos(List<ProdutoEstoque> produtos) {
+        System.out.print("\u001B[1m");
         System.out.println("------------------------------ Lista de Produtos no Estoque ------------------------------\nID\tNome do Produto\t\tCategoria\tQuantidade em estoque\tValor unítario\tData da compra");
+        System.out.print("\u001B[0m");
         for (ProdutoEstoque produto : produtos) {
             System.out.print("\u001B[30m");
             System.out.printf("%-8d %-24s %-22s %-19d %-14.2f%-15s\n",produto.id,produto.nome,produto.descricao,produto.qtdTotal,produto.valorCompra,produto.dataCompra);

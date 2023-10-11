@@ -117,7 +117,10 @@ public class main {
                                     System.out.print("\n\nDeseja cadastrar um novo produto (s/n): ");
                                     alternativa = sc.next().charAt(0);
                                     minusculo = Character.toLowerCase(alternativa);
-                                    minusculo = confirmandoCaractere(minusculo, alternativa); // metodo para fazer o caractere ficar minusculo e comparar de m jeito mais pratico
+                                    minusculo = confirmandoCaractere(minusculo, alternativa); // metodo para fazer o
+                                                                                              // caractere ficar
+                                                                                              // minusculo e comparar de
+                                                                                              // m jeito mais pratico
                                 } while (minusculo == 's');
                             } else {
                                 categoriaInvalida();
@@ -191,31 +194,28 @@ public class main {
                                     id = caractereInvalido();
 
                                     if (id >= 0 && id < produtos.size()) {
-                                        if (produtos.get(id) != null) {
+                                        
                                             int ver = id;
                                             i = 0;
-                                            for (ProdutoEstoque produto : produtos) { //percorre o array
+                                            for (ProdutoEstoque produto : produtos) { // percorre o array
                                                 if (i == id) {
                                                     int guardaIdProduto = produto.getId();
                                                     int armazena = produtos.get(guardaIdProduto).getQtdTotal();
                                                     produtos.get(guardaIdProduto).setQtdTotal(armazena);
-                                                }
-                                                i++;
-                                            }
-                                            i = 0;
-                                            for (ProdutoEstoque produto : produtos) {
-                                                if (i > id) {
+                                                }else  if (i > id) {
                                                     produto.setId(ver);
                                                     ver++;
                                                 }
                                                 i++;
                                             }
                                             ProdutoEstoque.removerProduto(produtos, id);
+                                            limparTela();
+                                            ProdutoEstoque.mostrarProdutos(produtos);
                                             System.out.print("\nDeseja remover outro produto (s/n): ");
                                             alternativa = sc.next().charAt(0);
                                             minusculo = Character.toLowerCase(alternativa);
                                             minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        }
+                                        
                                     } else {
                                         minusculo = 'n';
                                         idInvalida();
@@ -257,22 +257,33 @@ public class main {
                                     // Adicionar categoria
                                     do {
                                         limparTela();
-                                        System.out.println("\nCategorias cadastradas: \nID\tNome");
+                                        System.out.print("\u001B[1m");
+                                        System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                        System.out.print("\u001B[0m");
                                         int i = 0;
                                         for (String categoria : categorias) {
+                                            System.out.print("\u001B[30m");
                                             System.out.println(i + "\t" + categorias.get(i));
+                                            System.out.print("\u001B[0m");
                                             i++;
                                         }
                                         sc.nextLine();
                                         System.out.print("\nNome da categoria: ");
                                         String nomeCategoria = sc.nextLine();
                                         categorias.add(nomeCategoria);
+                                        limparTela();
+                                        System.out.println("\nCategorias cadastradas: \nID\tNome");
+                                        i = 0;
+                                        for (String categoria : categorias) {
+                                            System.out.print("\u001B[30m");
+                                            System.out.println(i + "\t" + categorias.get(i));
+                                            System.out.print("\u001B[0m");
+                                            i++;
+                                        }
                                         System.out.print("\nCategoria cadastrada com sucesso!");
-
                                         System.out.print("\nDeseja cadastrar uma nova categoria (s/n): ");
                                         alternativa = sc.next().charAt(0);
                                         minusculo = Character.toLowerCase(alternativa);
-
                                         minusculo = confirmandoCaractere(minusculo, alternativa);
                                     } while (minusculo == 's');
                                     break;
@@ -280,31 +291,44 @@ public class main {
                                 // Editar categorias
                                 case 2:
                                     limparTela();
-                                    System.out.println("\nCategorias cadastradas: \nID\tNome");
+                                    System.out.print("\u001B[1m");
+                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                    System.out.print("\u001B[0m");
                                     int i = 0;
-                                    for (String categoria : categorias) {
+                                    for (String categoria : categorias) { //mostrando as categorias
+                                        System.out.print("\u001B[30m");
                                         System.out.println(i + "\t" + categorias.get(i));
+                                        System.out.print("\u001B[0m");
                                         i++;
                                     }
-                                    if (categorias.size() != 0) {
+                                    if (categorias.size() != 0) { // verificando se ja existe uma categoria
                                         minusculo = 's';
-                                        while (minusculo == 's') {
+                                        while (minusculo == 's') { //loop para repetir até o usuario não querer editar outra categoria
 
-                                            id = caractereInvalido();
+                                            id = caractereInvalido(); //recebe o id e verifica se existe
 
-                                            if (id >= 0 && id < categorias.size()) {
-                                                if (categorias.get(id) != null)
-
-                                                    sc.nextLine();
+                                            if (id >= 0 && id < categorias.size()) { //caso o id exista entra nesse if
+                                                sc.nextLine();
                                                 System.out.print("Insira o novo nome da categoria: ");
                                                 String nomeCategoria = sc.nextLine();
-                                                categorias.set(id, nomeCategoria);
-                                                System.out.print("Categoria editada com sucesso!");
-
+                                                limparTela();
+                                                categorias.set(id, nomeCategoria); //altera o novo nome
+                                                
+                                                // mostra novamente as categorias para ver se o usuario quer editar outra
+                                                System.out.print("\u001B[1m");
+                                                System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                                System.out.print("\u001B[0m");
+                                                i = 0;
+                                                    for (String categoria : categorias) { //mostrando as categorias
+                                                        System.out.print("\u001B[30m");
+                                                        System.out.println(i + "\t" + categorias.get(i));
+                                                        System.out.print("\u001B[0m");
+                                                        i++;
+                                                    }
+                                                System.out.print("\nCategoria editada com sucesso!"); 
                                                 System.out.print("\nDeseja editar outra categoria (s/n): ");
                                                 alternativa = sc.next().charAt(0);
                                                 minusculo = Character.toLowerCase(alternativa);
-
                                                 minusculo = confirmandoCaractere(minusculo, alternativa);
                                             } else {
                                                 minusculo = 'n';
@@ -318,27 +342,72 @@ public class main {
                                 // Mostrar categorias
                                 case 3:
                                     limparTela();
-                                    System.out.println("Lista de Categorias Cadastradas: ");
-                                    System.out.println("ID\tNome");
+                                    System.out.print("\u001B[1m");
+                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                    System.out.print("\u001B[0m");
                                     i = 0;
-                                    for (String categoria : categorias) {
+                                    for (String categoria : categorias) { //mostrando as categorias
+                                        System.out.print("\u001B[30m");
                                         System.out.println(i + "\t" + categorias.get(i));
+                                        System.out.print("\u001B[0m");
                                         i++;
                                     }
                                     System.out.print("\nDigite alguma tecla para sair : ");
                                     alternativa = sc.next().charAt(0);
                                     break;
                                 case 4:
-                                System.out.println("Insira o id: ");
-                                id = sc.nextInt();
-                                    categorias.remove(id);
+                                 if (categorias.size() != 0) { // verificando se ja existe uma 
+                                    do{
+                                    limparTela();
+                                    System.out.print("\u001B[1m");
+                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                    System.out.print("\u001B[0m");
+                                    i = 0;
+                                    for (String categoria : categorias) { //mostrando as categorias
+                                        System.out.print("\u001B[30m");
+                                        System.out.println(i + "\t" + categorias.get(i));
+                                        System.out.print("\u001B[0m");
+                                        i++;
+                                    }
+                                    id = caractereInvalido(); //recebe o id que será fornecido pelo usuario e verifica se é inteiro
+                                    if(id >= 0 && id < categorias.size()){ //verifica se o id existe
+
+                                    categorias.remove(id); //removo a categoria através do id
+
+                                    limparTela();
+                                    System.out.print("\u001B[1m");
+                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                    System.out.print("\u001B[0m");
+                                    i = 0;
+                                    for (String categoria : categorias) { //mostrando as categorias
+                                        System.out.print("\u001B[30m");
+                                        System.out.println(i + "\t" + categorias.get(i));
+                                        System.out.print("\u001B[0m");
+                                        i++;
+                                    }
+                                    System.out.print("\nCategoria removida com sucesso!");
+                                    System.out.print("\nDeseja remover uma nova categoria (s/n): ");
+                                    alternativa = sc.next().charAt(0);
+                                    minusculo = Character.toLowerCase(alternativa); //recebo o caractere e transformo em minusculo
+                                    minusculo = confirmandoCaractere(minusculo, alternativa); //confirmo o caractere passado pelo o úsuario
+                                
+                                }else{ //caso não exista o id aparecerá uma mensagem
+                                    minusculo = 'n';
+                                    idInvalida();
+                                }
+                                }while(minusculo =='s'); //equanto o usuario informar o 's' o programa vai continuar
+                            }
+                                    break;
+                                case 5: 
+                                //caso 5 voltara para o menu
                                     break;
                                 default:
                                     opcaoInvalida();
-                            }
+                                }
                             break;
 
                         case 7:
+                        //volta para o menu
                             break;
                         default:
                             opcaoInvalida();
@@ -568,14 +637,12 @@ public class main {
                                                 }
                                                 i++;
                                             }
-
                                         } else {
                                             System.out.println("Sem estoque para venda!");
                                         }
                                     } else {
                                         System.out.println("Produto não encontrado!");
                                     }
-
                                     System.out.print("\nDeseja realizar uma nova venda (s/n): ");
                                     alternativa = sc.next().charAt(0);
                                     minusculo = Character.toLowerCase(alternativa);
@@ -605,25 +672,20 @@ public class main {
                                                 limparTela();
                                                 System.out.print("Insira a nova quantidade de venda: ");
                                                 quantidadeVenda = sc.nextInt();
+
                                                 System.out.println("Quantidade alterada com sucesso!");
+
                                                 if (quantidadeVenda > vendas.get(idVenda).getQuantidadeVenda()) {
-                                                    int novaQuantidade = quantidadeVenda
-                                                            - vendas.get(idVenda).getQuantidadeVenda();
+                                                    int novaQuantidade = quantidadeVenda - vendas.get(idVenda).getQuantidadeVenda();
                                                     vendas.get(idVenda).setQuantidadeVenda(quantidadeVenda);
-                                                    int quantidadeEstoque = produtos
-                                                            .get(vendas.get(idVenda).getIdProduto())
-                                                            .getQtdTotal();
-                                                    produtos.get(vendas.get(idVenda).getIdProduto())
-                                                            .setQtdTotal(quantidadeEstoque - novaQuantidade);
+                                                    int quantidadeEstoque = produtos.get(vendas.get(idVenda).getIdProduto()).getQtdTotal();
+                                                    produtos.get(vendas.get(idVenda).getIdProduto()).setQtdTotal(quantidadeEstoque - novaQuantidade);
+
                                                 } else if (quantidadeVenda < vendas.get(idVenda).getQuantidadeVenda()) {
-                                                    int novaQuantidade = vendas.get(idVenda).getQuantidadeVenda()
-                                                            - quantidadeVenda;
+                                                    int novaQuantidade = vendas.get(idVenda).getQuantidadeVenda() - quantidadeVenda;
                                                     vendas.get(idVenda).setQuantidadeVenda(quantidadeVenda);
-                                                    int quantidadeEstoque = produtos
-                                                            .get(vendas.get(idVenda).getIdProduto())
-                                                            .getQtdTotal();
-                                                    produtos.get(vendas.get(idVenda).getIdProduto())
-                                                            .setQtdTotal(quantidadeEstoque + novaQuantidade);
+                                                    int quantidadeEstoque = produtos.get(vendas.get(idVenda).getIdProduto()).getQtdTotal();
+                                                    produtos.get(vendas.get(idVenda).getIdProduto()).setQtdTotal(quantidadeEstoque + novaQuantidade);
                                                 }
                                                 break;
                                             case 2:
@@ -678,23 +740,22 @@ public class main {
 
                                             for (Vendas venda : vendas) {
                                                 if (i == id) {
-                                                    int guardaIdProduto = venda.getIdProduto();
-                                                    int armazena = produtos.get(guardaIdProduto).getQtdTotal();
+                                                    int guardaIdProduto = venda.getIdProduto(); // armazena o id daquela
+                                                                                                // venda
+                                                    int armazena = produtos.get(guardaIdProduto).getQtdTotal(); // quantidade
+                                                                                                                // total
+                                                                                                                // de
+                                                                                                                // estoque
+                                                                                                                // naquele
+                                                                                                                // id
                                                     produtos.get(guardaIdProduto)
-                                                            .setQtdTotal(armazena + venda.getQuantidadeVenda());
-                                                }
-                                                i++;
-                                            }
-
-                                            i = 0;
-                                            for (Vendas venda : vendas) {
-                                                if (i > id) {
+                                                            .setQtdTotal(armazena + venda.getQuantidadeVenda()); //
+                                                } else if (i > id) {
                                                     venda.setId(ver);
                                                     ver++;
                                                 }
                                                 i++;
                                             }
-
                                             Vendas.removerVendas(vendas, id);
 
                                             System.out.print("\nDeseja remover outro produto (s/n): ");
@@ -843,19 +904,19 @@ public class main {
                                                     int guardaIdcliente = cliente.getId();
                                                     int armazena = clientes.get(guardaIdcliente).getId();
                                                     clientes.get(guardaIdcliente).setId(armazena);
-                                                }else if (i > id) {
+                                                } else if (i > id) {
                                                     cliente.setId(ver);
                                                     ver++;
-                                                } 
+                                                }
                                                 i++;
                                             }
-                                            }
-                                            Clientes.removerCliente(clientes, id);
-                                            System.out.print("\nDeseja remover outro cliente (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        
+                                        }
+                                        Clientes.removerCliente(clientes, id);
+                                        System.out.print("\nDeseja remover outro cliente (s/n): ");
+                                        alternativa = sc.next().charAt(0);
+                                        minusculo = Character.toLowerCase(alternativa);
+                                        minusculo = confirmandoCaractere(minusculo, alternativa);
+
                                     } else {
                                         minusculo = 'n';
                                         idInvalida();
@@ -882,9 +943,8 @@ public class main {
                     opcaoInvalida();
                     break;
             }
-
+        sc.close();
         }
-        
 
     }
 
@@ -957,6 +1017,7 @@ public class main {
             } while (minusculo != 's' && minusculo != 'n');
             confirmacao = minusculo;
         }
+        sc.close();
         return confirmacao;
     }
 

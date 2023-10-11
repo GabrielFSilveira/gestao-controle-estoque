@@ -71,8 +71,9 @@ public class Vendas {
     }
 
     public static void mostrarVendas(List<Vendas> vendas) {
+        System.out.print("\u001B[1m");
         System.out.println("--------------------------- Lista de Vendas Realizadas ---------------------------\nID\tID Produto\tQuantidade\t\tData\t\tNome do Comprador");
-
+        System.out.print("\u001B[0m");
         for (Vendas venda : vendas) {
             System.out.print("\u001B[30m");
             System.out.printf("%-12d%-15d%-17d %-18s %-15s\n",venda.id,venda.idProduto,venda.quantidadeVenda,venda.dataVenda,venda.nomeCliente);

@@ -111,7 +111,9 @@ public class Fornecedores {
     }
 
     public static void mostrarFornecedores(List<Fornecedores> fornecedores) {
+        System.out.print("\u001B[1m");
         System.out.println("-------------------------- Lista de Fornecedores --------------------------\nID\tNome\t\t\tContato\t\tEndereço\t    Categoria");
+        System.out.print("\u001B[0m");
         for (Fornecedores fornecedor : fornecedores) {
             System.out.print("\u001B[30m");
             System.out.printf("%-8d%-24s%-15s %-19s %-15s\n",fornecedor.id,fornecedor.nome,fornecedor.contato,fornecedor.endereco,fornecedor.categoria);

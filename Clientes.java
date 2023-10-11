@@ -82,8 +82,10 @@ public class Clientes {
 
     /* Metodo para mostrar os clientes */
     public static void mostrarClientes(List<Clientes> clientes) {
+        System.out.print("\u001B[1m");
         System.out.println("------------------- Lista de Clientes -------------------\nID\tNome\t\t\tContato\t\tEndereço");
-
+        System.out.print("\u001B[0m");
+        
         for (Clientes cliente : clientes) {
             System.out.print("\u001B[30m");
             System.out.printf("%-8d%-24s%-15s %-15s\n",cliente.id,cliente.nomeCliente,cliente.contato,cliente.endereco);
