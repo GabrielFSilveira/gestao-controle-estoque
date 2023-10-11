@@ -77,11 +77,12 @@ public class Clientes {
         } else {
             System.out.println("Opção invalida!!");
         }
+        sc.close();
     }
 
     /* Metodo para mostrar os clientes */
     public static void mostrarClientes(List<Clientes> clientes) {
-        System.out.println("--------------------Lista de Clientes--------------------\nID\tNome\t\t\tContato\t\tEndereço");
+        System.out.println("------------------- Lista de Clientes -------------------\nID\tNome\t\t\tContato\t\tEndereço");
 
         for (Clientes cliente : clientes) {
             System.out.print("\u001B[30m");

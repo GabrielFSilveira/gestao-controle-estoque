@@ -1,8 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
-
 public class Fornecedores {
     // Aqui começa a definição da classe Fornecedores.
     private int id;
@@ -109,12 +107,16 @@ public class Fornecedores {
         } else {
             System.out.println("Opção invalida!!");
         }
+        sc.close();
     }
 
     public static void mostrarFornecedores(List<Fornecedores> fornecedores) {
-        System.out.println("Lista de Fornecedores\nID\tNome\t   Contato\t    Endereço\t    Categoria");
+        System.out.println("-------------------------- Lista de Fornecedores --------------------------\nID\tNome\t\t\tContato\t\tEndereço\t    Categoria");
         for (Fornecedores fornecedor : fornecedores) {
-            System.out.println(fornecedor.id + "\t" + fornecedor.nome + "\t  " + fornecedor.contato + "\t\t    " + fornecedor.endereco + "\t\t     " + fornecedor.categoria);
+            System.out.print("\u001B[30m");
+            System.out.printf("%-8d%-24s%-15s %-19s %-15s\n",fornecedor.id,fornecedor.nome,fornecedor.contato,fornecedor.endereco,fornecedor.categoria);
+            //System.out.println(fornecedor.id + "\t" + fornecedor.nome + "\t  " + fornecedor.contato + "\t\t    " + fornecedor.endereco + "\t\t     " + fornecedor.categoria);
+            System.out.print("\u001B[0m");
         }
         System.out.println("\n\n");
     }

@@ -36,7 +36,6 @@ public class main {
         int idVenda;
 
         String nomeFornecedor;
-        int idFornecedor;
 
         Scanner sc = new Scanner(System.in);
 
@@ -113,7 +112,8 @@ public class main {
                                     } else {
                                         categoriaInvalida();
                                     }
-
+                                    limparTela();
+                                    ProdutoEstoque.mostrarProdutos(produtos);
                                     System.out.print("\n\nDeseja cadastrar um novo produto (s/n): ");
                                     alternativa = sc.next().charAt(0);
                                     minusculo = Character.toLowerCase(alternativa);
@@ -173,6 +173,7 @@ public class main {
                             break;
                         case 3:
                             if (produtos.size() != 0) { // se não existir produto o programa mostra erro
+                                limparTela();
                                 ProdutoEstoque.mostrarProdutos(produtos);
                                 System.out.print("\nDigite alguma tecla para sair : ");
                                 alternativa = sc.next().charAt(0);
@@ -328,7 +329,9 @@ public class main {
                                     alternativa = sc.next().charAt(0);
                                     break;
                                 case 4:
-
+                                System.out.println("Insira o id: ");
+                                id = sc.nextInt();
+                                    categorias.remove(id);
                                     break;
                                 default:
                                     opcaoInvalida();
@@ -881,6 +884,7 @@ public class main {
             }
 
         }
+        
 
     }
 

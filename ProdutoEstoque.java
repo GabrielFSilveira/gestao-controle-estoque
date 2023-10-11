@@ -1,12 +1,9 @@
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProdutoEstoque {
-    private String nome;
     private int id;
+    private String nome;
     private String descricao;
     private int qtdTotal;
     private double valorCompra;
@@ -79,9 +76,13 @@ public class ProdutoEstoque {
 
     /* Método para mostrar os produtos */
     public static void mostrarProdutos(List<ProdutoEstoque> produtos) {
-        System.out.println("\nLista de Produtos no Estoque\n\nID\tNome do Produto\t\tCategoria\tQuantidade em estoque\tValor unítario \t  Data da compra");
+        System.out.println("------------------------------ Lista de Produtos no Estoque ------------------------------\nID\tNome do Produto\t\tCategoria\tQuantidade em estoque\tValor unítario\tData da compra");
         for (ProdutoEstoque produto : produtos) {
-            System.out.println(produto.id + "\t    " + produto.nome + "\t\t"+ produto.descricao+"\t\t     "+ produto.qtdTotal+"\t\t     "+ produto.valorCompra+"\t       "+produto.valorCompra);
+            System.out.print("\u001B[30m");
+            System.out.printf("%-8d %-24s %-22s %-19d %-14.2f%-15s\n",produto.id,produto.nome,produto.descricao,produto.qtdTotal,produto.valorCompra,produto.dataCompra);
+            System.out.print("\u001B[0m");
+            //System.out.println(produto.id + "\t    " + produto.nome + "\t\t"+ produto.descricao+"\t\t     "+ produto.qtdTotal+"\t\t     "+ produto.valorCompra+"\t       "+produto.valorCompra);
+            
         }
         System.out.println("\n\n");
     }
@@ -124,6 +125,7 @@ public class ProdutoEstoque {
         } else {
             System.out.println("Opção invalida!!");
         }
+        sc.close();
     }
 
     /* Método para remover os produtos */

@@ -67,15 +67,19 @@ public class Vendas {
         String novaData = sc.nextLine();
         vendas.get(id).setDataVenda(novaData);
         System.out.print("Data alterada com sucesso!");
+        sc.close();
     }
 
     public static void mostrarVendas(List<Vendas> vendas) {
-        System.out.println("Lista de Vendas Realizadas\nID\tID Produto\tQuantidade\tData\t\tNome do Comprador");
-        int i = 0;
+        System.out.println("--------------------------- Lista de Vendas Realizadas ---------------------------\nID\tID Produto\tQuantidade\t\tData\t\tNome do Comprador");
+
         for (Vendas venda : vendas) {
-            System.out.println(venda.id + "\t     " + venda.idProduto + "\t\t  " + venda.quantidadeVenda + "\t     " + venda.dataVenda + "\t\t" + venda.nomeCliente);
-            i++;
+            System.out.print("\u001B[30m");
+            System.out.printf("%-12d%-15d%-17d %-18s %-15s\n",venda.id,venda.idProduto,venda.quantidadeVenda,venda.dataVenda,venda.nomeCliente);
+            //System.out.println(venda.id + "\t     " + venda.idProduto + "\t\t  " + venda.quantidadeVenda + "\t     " + venda.dataVenda + "\t\t" + venda.nomeCliente);
+            System.out.print("\u001B[0m");
         }
+
         System.out.println("\n\n");
     }
 
