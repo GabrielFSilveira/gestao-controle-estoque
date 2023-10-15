@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -181,7 +181,7 @@ public class main {
                                 limparTela();
                                 ProdutoEstoque.mostrarProdutos(produtos);
                                 System.out.print("\nDigite alguma tecla para sair : ");
-                                alternativa = sc.next().charAt(0);
+                                sc.next().charAt(0);
                             } else {
                                 produtoVazio();
                             }
@@ -539,8 +539,7 @@ public class main {
                                 limparTela();
                                 Fornecedores.mostrarFornecedores(fornecedores);
                                 System.out.print("\nDigite alguma tecla para sair : ");
-                                alternativa = sc.next().charAt(0);
-                                sc.nextLine();
+                                sc.next().charAt(0);
                             } else {
                                 fornecedorVazio();
                             }
@@ -720,13 +719,10 @@ public class main {
                             if (produtos.size() != 0 && clientes.size() != 0) {
                                 // Mostrar vendas
                                 limparTela();
-                                alternativa = 's';
-                                while (alternativa == 's') {
                                     limparTela();
                                     Vendas.mostrarVendas(vendas);
                                     System.out.print("\nDigite alguma tecla para sair : ");
-                                    alternativa = sc.next().charAt(0);
-                                }
+                                    sc.next().charAt(0);
                             } else {
                                 produtoouclieteVazio();
                             }
@@ -884,12 +880,9 @@ public class main {
                         case 3:
                             if (clientes.size() != 0) {
                                 limparTela();
-                                alternativa = 's';
-                                while (alternativa == 's') {
                                     Clientes.mostrarClientes(clientes);
                                     System.out.print("\nDigite alguma tecla para sair : ");
-                                    alternativa = sc.next().charAt(0);
-                                }
+                                    sc.next().charAt(0);
                             } else {
                                 clienteVazio();
                             }
@@ -1083,7 +1076,7 @@ public class main {
     }
 
     public static void fornecedorVazio() throws InterruptedException {
-        System.out.print("Nenhuma fornecedor cadastrado, voltando em");
+        System.out.print("Nenhum fornecedor cadastrado, voltando em");
         System.out.print(" 3");
         Thread.sleep(700);
         System.out.print(" 2");
