@@ -77,7 +77,6 @@ public class Clientes {
         } else {
             System.out.println("Opção invalida!!");
         }
-        sc.close();
     }
 
     /* Metodo para mostrar os clientes */

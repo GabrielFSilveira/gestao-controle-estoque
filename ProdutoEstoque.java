@@ -127,7 +127,6 @@ public class ProdutoEstoque {
         } else {
             System.out.println("Opção invalida!!");
         }
-        sc.close();
     }
 
     /* Método para remover os produtos */

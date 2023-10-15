@@ -274,7 +274,9 @@ public class main {
                                         String nomeCategoria = sc.nextLine();
                                         categorias.add(nomeCategoria);
                                         limparTela();
-                                        System.out.println("\nCategorias cadastradas: \nID\tNome");
+                                         System.out.print("\u001B[1m");
+                                        System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                        System.out.print("\u001B[0m");
                                         i = 0;
                                         for (String categoria : categorias) {
                                             System.out.print("\u001B[30m");
@@ -434,12 +436,16 @@ public class main {
                                 do {
                                     limparTela();
 
-                                    System.out.println("\nCategorias cadastradas: \nID\tNome");
-                                    int i = 0;
-                                    for (String categoria : categorias) {
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        i++;
-                                    }
+                                     System.out.print("\u001B[1m");
+                                        System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
+                                        System.out.print("\u001B[0m");
+                                        int i = 0;
+                                        for (String categoria : categorias) {
+                                            System.out.print("\u001B[30m");
+                                            System.out.println(i + "\t" + categorias.get(i));
+                                            System.out.print("\u001B[0m");
+                                            i++;
+                                        }
 
                                     System.out.print("\nInforme o ID da categoria do fornecedor: ");
                                     int idCategoria = sc.nextInt();
@@ -946,7 +952,6 @@ public class main {
                     break;
             }
         }
-
     }
 
     /* MÉTODO */

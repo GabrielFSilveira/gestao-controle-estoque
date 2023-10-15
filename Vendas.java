@@ -67,7 +67,6 @@ public class Vendas {
         String novaData = sc.nextLine();
         vendas.get(id).setDataVenda(novaData);
         System.out.print("Data alterada com sucesso!");
-        sc.close();
     }
 
     public static void mostrarVendas(List<Vendas> vendas) {

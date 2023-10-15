@@ -107,7 +107,6 @@ public class Fornecedores {
         } else {
             System.out.println("Opção invalida!!");
         }
-        sc.close();
     }
 
     public static void mostrarFornecedores(List<Fornecedores> fornecedores) {
