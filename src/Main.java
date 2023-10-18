@@ -1,11 +1,28 @@
+package src;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import entidades.Clientes;
+import entidades.Fornecedores;
+import entidades.ProdutoEstoque;
+import entidades.Vendas;
+
+
+import dao.ClientesDAO;
+import dao.CategoriasDAO;
+import dao.FornecedoresDAO;
+
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
+
+        ClientesDAO clientesDAO = new ClientesDAO();
+        CategoriasDAO categoriasDAO = new CategoriasDAO();
+        FornecedoresDAO fornecedoresDAO = new FornecedoresDAO();
 
         limparTela();
         List<Clientes> clientes = new ArrayList();
@@ -13,8 +30,6 @@ public class Main {
         List<Vendas> vendas = new ArrayList();
         List<Fornecedores> fornecedores = new ArrayList();
         ArrayList<String> categorias = new ArrayList();
-
-        carregarDados(clientes, produtos, vendas, fornecedores, categorias);
 
         char alternativa;
         char minusculo;
@@ -256,149 +271,16 @@ public class Main {
                             escolha = sc.nextInt();
                             switch (escolha) {
                                 case 1:
-                                    // Adicionar categoria
-                                    do {
-                                        limparTela();
-                                        System.out.print("\u001B[1m");
-                                        System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                        System.out.print("\u001B[0m");
-                                        int i = 0;
-                                        for (String categoria : categorias) {
-                                            System.out.print("\u001B[30m");
-                                            System.out.println(i + "\t" + categorias.get(i));
-                                            System.out.print("\u001B[0m");
-                                            i++;
-                                        }
-                                        sc.nextLine();
-                                        System.out.print("\nNome da categoria: ");
-                                        String nomeCategoria = sc.nextLine();
-                                        categorias.add(nomeCategoria);
-                                        limparTela();
-                                        System.out.println("\nCategorias cadastradas: \nID\tNome");
-                                        i = 0;
-                                        for (String categoria : categorias) {
-                                            System.out.print("\u001B[30m");
-                                            System.out.println(i + "\t" + categorias.get(i));
-                                            System.out.print("\u001B[0m");
-                                            i++;
-                                        }
-                                        System.out.print("\nCategoria cadastrada com sucesso!");
-                                        System.out.print("\nDeseja cadastrar uma nova categoria (s/n): ");
-                                        alternativa = sc.next().charAt(0);
-                                        minusculo = Character.toLowerCase(alternativa);
-                                        minusculo = confirmandoCaractere(minusculo, alternativa);
-                                    } while (minusculo == 's');
+                                    categoriasDAO.cadastrarCategoria();
                                     break;
-
-                                // Editar categorias
                                 case 2:
-                                    limparTela();
-                                    System.out.print("\u001B[1m");
-                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                    System.out.print("\u001B[0m");
-                                    int i = 0;
-                                    for (String categoria : categorias) { //mostrando as categorias
-                                        System.out.print("\u001B[30m");
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        System.out.print("\u001B[0m");
-                                        i++;
-                                    }
-                                    if (categorias.size() != 0) { // verificando se ja existe uma categoria
-                                        minusculo = 's';
-                                        while (minusculo == 's') { //loop para repetir até o usuario não querer editar outra categoria
-
-                                            id = caractereInvalido(); //recebe o id e verifica se existe
-
-                                            if (id >= 0 && id < categorias.size()) { //caso o id exista entra nesse if
-                                                sc.nextLine();
-                                                System.out.print("Insira o novo nome da categoria: ");
-                                                String nomeCategoria = sc.nextLine();
-                                                limparTela();
-                                                categorias.set(id, nomeCategoria); //altera o novo nome
-                                                
-                                                // mostra novamente as categorias para ver se o usuario quer editar outra
-                                                System.out.print("\u001B[1m");
-                                                System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                                System.out.print("\u001B[0m");
-                                                i = 0;
-                                                    for (String categoria : categorias) { //mostrando as categorias
-                                                        System.out.print("\u001B[30m");
-                                                        System.out.println(i + "\t" + categorias.get(i));
-                                                        System.out.print("\u001B[0m");
-                                                        i++;
-                                                    }
-                                                System.out.print("\nCategoria editada com sucesso!"); 
-                                                System.out.print("\nDeseja editar outra categoria (s/n): ");
-                                                alternativa = sc.next().charAt(0);
-                                                minusculo = Character.toLowerCase(alternativa);
-                                                minusculo = confirmandoCaractere(minusculo, alternativa);
-                                            } else {
-                                                minusculo = 'n';
-                                                idInvalida();
-                                            }
-                                        }
-                                    } else {
-                                        caractereInvalido();
-                                    }
+                                    categoriasDAO.editarCategorias();
                                     break;
-                                // Mostrar categorias
                                 case 3:
-                                    limparTela();
-                                    System.out.print("\u001B[1m");
-                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                    System.out.print("\u001B[0m");
-                                    i = 0;
-                                    for (String categoria : categorias) { //mostrando as categorias
-                                        System.out.print("\u001B[30m");
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        System.out.print("\u001B[0m");
-                                        i++;
-                                    }
-                                    System.out.print("\nDigite alguma tecla para sair : ");
-                                    alternativa = sc.next().charAt(0);
+                                    categoriasDAO.listarCategorias();
                                     break;
                                 case 4:
-                                 if (categorias.size() != 0) { // verificando se ja existe uma 
-                                    do{
-                                    limparTela();
-                                    System.out.print("\u001B[1m");
-                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                    System.out.print("\u001B[0m");
-                                    i = 0;
-                                    for (String categoria : categorias) { //mostrando as categorias
-                                        System.out.print("\u001B[30m");
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        System.out.print("\u001B[0m");
-                                        i++;
-                                    }
-                                    id = caractereInvalido(); //recebe o id que será fornecido pelo usuario e verifica se é inteiro
-                                    if(id >= 0 && id < categorias.size()){ //verifica se o id existe
-
-                                    categorias.remove(id); //removo a categoria através do id
-
-                                    limparTela();
-                                    System.out.print("\u001B[1m");
-                                    System.out.println("--------- Categorias cadastradas --------- \nID\tNome");
-                                    System.out.print("\u001B[0m");
-                                    i = 0;
-                                    for (String categoria : categorias) { //mostrando as categorias
-                                        System.out.print("\u001B[30m");
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        System.out.print("\u001B[0m");
-                                        i++;
-                                    }
-                                    System.out.print("\nCategoria removida com sucesso!");
-                                    System.out.print("\nDeseja remover uma nova categoria (s/n): ");
-                                    alternativa = sc.next().charAt(0);
-                                    minusculo = Character.toLowerCase(alternativa); //recebo o caractere e transformo em minusculo
-                                    minusculo = confirmandoCaractere(minusculo, alternativa); //confirmo o caractere passado pelo o úsuario
-                                
-                                }else{ //caso não exista o id aparecerá uma mensagem
-                                    minusculo = 'n';
-                                    idInvalida();
-                                }
-                                }while(minusculo =='s'); //equanto o usuario informar o 's' o programa vai continuar
-                            }
+                                    categoriasDAO.deletarCategoria();
                                     break;
                                 case 5: 
                                 //caso 5 voltara para o menu
@@ -428,147 +310,21 @@ public class Main {
                     escolha = sc.nextInt();
                     switch (escolha) {
                         case 1:
-                            if (categorias.size() != 0) {
-                                limparTela();
-                                minusculo = 's';
-                                do {
-                                    limparTela();
-
-                                    System.out.println("\nCategorias cadastradas: \nID\tNome");
-                                    int i = 0;
-                                    for (String categoria : categorias) {
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        i++;
-                                    }
-
-                                    System.out.print("\nInforme o ID da categoria do fornecedor: ");
-                                    int idCategoria = sc.nextInt();
-
-                                    if (idCategoria >= 0 && idCategoria < categorias.size()) {
-
-                                        sc.nextLine();
-                                        System.out.printf("Nome do Fornecedor: ");
-                                        nomeFornecedor = sc.nextLine();
-
-                                        System.out.print("Contato: ");
-                                        contato = sc.nextLine();
-
-                                        System.out.print("Endereço: ");
-                                        endereco = sc.nextLine();
-
-                                        id = fornecedores.size();
-
-                                        Fornecedores fornecedor = new Fornecedores(id, nomeFornecedor, contato,
-                                                endereco, categorias.get(idCategoria));
-
-                                        fornecedor.adicionarFornecedores(fornecedores);
-                                        Thread.sleep(700);
-                                    } else {
-                                        categoriaInvalida();
-                                    }
-
-                                    System.out.print("\n\nDeseja cadastrar um novo fornecedor (s/n): ");
-                                    alternativa = sc.next().charAt(0);
-                                    minusculo = Character.toLowerCase(alternativa);
-
-                                    minusculo = confirmandoCaractere(minusculo, alternativa);
-
-                                } while (minusculo == 's');
-                            } else {
-                                categoriaInvalida();
-                            }
+                            fornecedoresDAO.adicionarFornecedor();
                             break;
-
-                        // Clientes
                         case 2:
-                            if (fornecedores.size() != 0) {
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    limparTela();
-                                    System.out.printf("Insira o id: ");
-                                    while (!sc.hasNextInt()) {
-                                        String input = sc.next();
-                                        System.out.print("\nInsira um número inteiro válido.");
-                                        System.out.println("\nInsira o id: ");
-                                    }
-                                    id = sc.nextInt();
-                                    if (id >= 0 && id < fornecedores.size()) {
-                                        if (fornecedores.get(id) != null) {
-                                            System.out.println("1 - Nome");
-                                            System.out.println("2 - Contato");
-                                            System.out.println("3 - Endereço");
-                                            System.out.println("4 - Categoria");
-                                            System.out.print("O que você quer editar: ");
-                                            int opcao = sc.nextInt();
-
-                                            if (opcao == 1 || opcao == 2 || opcao == 3 || opcao == 4) {
-                                                Fornecedores.editarFornecedor(fornecedores, id, opcao, categorias);
-                                                System.out.print("\nDeseja editar outro fornecedor (s/n): ");
-                                                alternativa = sc.next().charAt(0);
-                                                minusculo = Character.toLowerCase(alternativa);
-
-                                                minusculo = confirmandoCaractere(minusculo, alternativa);
-                                            } else {
-                                                System.out.println("Opção invalida!!");
-                                            }
-                                        } else {
-                                            System.out.println("Opção invalida!");
-                                            System.out.print("\nDeseja editar outro fornecedor (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        }
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-                            } else {
-                                fornecedorVazio();
-                            }
+                            fornecedoresDAO.editarFornecedor();
                             break;
                         case 3:
-                            if (fornecedores.size() != 0) {
-                                limparTela();
-                                Fornecedores.mostrarFornecedores(fornecedores);
-                                System.out.print("\nDigite alguma tecla para sair : ");
-                                sc.next().charAt(0);
-                            } else {
-                                fornecedorVazio();
-                            }
+                            fornecedoresDAO.mostrarFornecedor();
                             break;
                         case 4:
-                            // limparTela();
-                            if (fornecedores.size() != 0) {
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    System.out.printf("Insira o id: ");
-                                    id = sc.nextInt();
-                                    if (id >= 0 && id < clientes.size()) {
-                                        if (clientes.get(id) != null) {
-                                            Fornecedores.removerFornecedor(fornecedores, id);
-                                            System.out.println("Cliente removido!!");
-                                            System.out.print("\nDeseja remover outro cliente (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        }
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-                            } else {
-                                fornecedorVazio();
-                            }
+                            fornecedoresDAO.removerFornecedor();
                             break;
                         case 5:
                             break;
                         default:
                             opcaoInvalida();
-
                             break;
                     }
                     break;
@@ -791,136 +547,17 @@ public class Main {
                     escolha = sc.nextInt();
                     switch (escolha) {
                         case 1:
-                            do {
-                                limparTela();
-                                sc.nextLine();
-                                System.out.printf("Nome: ");
-                                nomeCliente = sc.nextLine();
-
-                                System.out.print("Contato: ");
-                                contato = sc.next();
-
-                                sc.nextLine();
-                                System.out.print("Endereço: ");
-                                endereco = sc.nextLine();
-
-                                id = clientes.size();
-
-                                Clientes cliente = new Clientes(id, nomeCliente, contato, endereco);
-
-                                cliente.adicionarCliente(clientes);
-                                Thread.sleep(700);
-
-                                System.out.print("\nDeseja cadastrar um novo cliente (s/n): ");
-                                alternativa = sc.next().charAt(0);
-                                minusculo = Character.toLowerCase(alternativa);
-
-                                minusculo = confirmandoCaractere(minusculo, alternativa);
-
-                            } while (minusculo == 's');
+                            clientesDAO.adicionarCliente();
                             break;
-
-                        // Clientes
                         case 2:
-                            if (clientes.size() != 0) {
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    limparTela();
-                                    Clientes.mostrarClientes(clientes);
-                                    System.out.printf("Insira o id: ");
-                                    while (!sc.hasNextInt()) {
-                                        String input = sc.next();
-                                        System.out.print("\nInsira um número inteiro válido.");
-                                        System.out.println("\nInsira o id: ");
-                                    }
-                                    id = sc.nextInt();
-                                    if (id >= 0 && id < clientes.size()) {
-                                        if (clientes.get(id) != null) {
-                                            System.out.println("1 - Nome");
-                                            System.out.println("2 - Contato");
-                                            System.out.println("3 - Endereço");
-                                            System.out.print("O que você quer editar: ");
-                                            int opcao = sc.nextInt();
-
-                                            if (opcao == 1 || opcao == 2 || opcao == 3) {
-                                                Clientes.editarCliente(clientes, id, opcao);
-                                                limparTela();
-                                                Clientes.mostrarClientes(clientes);
-                                                System.out.print("\nDeseja editar outro cliente (s/n): ");
-                                                alternativa = sc.next().charAt(0);
-                                                minusculo = Character.toLowerCase(alternativa);
-
-                                                minusculo = confirmandoCaractere(minusculo, alternativa);
-                                            } else {
-                                                System.out.println("Opção invalida!!");
-                                            }
-                                        } else {
-                                            System.out.println("Opção invalida!");
-                                            System.out.print("\nDeseja editar outro cliente (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        }
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-                            } else {
-                                opcaoInvalida();
-                            }
+                            clientesDAO.editarCliente();
                             break;
                         case 3:
-                            if (clientes.size() != 0) {
-                                limparTela();
-                                    Clientes.mostrarClientes(clientes);
-                                    System.out.print("\nDigite alguma tecla para sair : ");
-                                    sc.next().charAt(0);
-                            } else {
-                                clienteVazio();
-                            }
+                            clientesDAO.mostrarCliente();
+                            sc.nextLine();
                             break;
                         case 4:
-                            if (clientes.size() != 0) {
-                                // limparTela()
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    limparTela();
-                                    Clientes.mostrarClientes(clientes);
-
-                                    id = caractereInvalido();
-                                    if (id >= 0 && id < clientes.size()) {
-                                        if (clientes.get(id) != null) {
-                                            int ver = id;
-                                            int i = 0;
-                                            for (Clientes cliente : clientes) {
-                                                if (i == id) {
-                                                    int guardaIdcliente = cliente.getId();
-                                                    int armazena = clientes.get(guardaIdcliente).getId();
-                                                    clientes.get(guardaIdcliente).setId(armazena);
-                                                } else if (i > id) {
-                                                    cliente.setId(ver);
-                                                    ver++;
-                                                }
-                                                i++;
-                                            }
-                                        }
-                                        Clientes.removerCliente(clientes, id);
-                                        System.out.print("\nDeseja remover outro cliente (s/n): ");
-                                        alternativa = sc.next().charAt(0);
-                                        minusculo = Character.toLowerCase(alternativa);
-                                        minusculo = confirmandoCaractere(minusculo, alternativa);
-
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-
-                            } else {
-                                clienteVazio();
-                            }
+                            clientesDAO.removerCliente();
                             break;
                         case 5:
                             break;
@@ -931,7 +568,6 @@ public class Main {
                     }
                     break;
                 case 5:
-                    salvarDados(clientes, produtos, vendas, fornecedores, categorias);
                     System.out.println("Saindo do programa.");
                     System.exit(0);
                 default:
@@ -1084,112 +720,4 @@ public class Main {
         Thread.sleep(333);
     }
 
-    public static void salvarDados(List<Clientes> clientes, List<ProdutoEstoque> produtos,
-            List<Vendas> vendas, List<Fornecedores> fornecedores, ArrayList<String> categorias) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("dados.txt"));
-
-            // Escreva os dados dos clientes
-            for (Clientes cliente : clientes) {
-                writer.write("cliente," + cliente.getId() + "," + cliente.getNomeCliente() + ","
-                        + cliente.getContato() + "," + cliente.getEndereco() + "\n");
-            }
-
-            // Escreva os dados dos produtos
-            for (ProdutoEstoque produto : produtos) {
-                writer.write("produto," + produto.getId() + "," + produto.getNome() + "," + produto.getQtdTotal() + ","
-                        + produto.getValorCompra() + "," + produto.getDescricao() + "," + produto.getDataCompra()
-                        + "\n");
-            }
-
-            // Escreva os dados das vendas
-            for (Vendas venda : vendas) {
-                writer.write("venda," + venda.getId() + "," + venda.getIdProduto() + "," + venda.getDataVenda() + ","
-                        + venda.getQuantidadeVenda() + "," + venda.getNomeCliente() + "\n");
-            }
-
-            // Escreva os dados dos fornecedores
-            for (Fornecedores fornecedor : fornecedores) {
-                writer.write("fornecedor," + fornecedor.getId() + "," + fornecedor.getNome() + ","
-                        + fornecedor.getContato() + "," + fornecedor.getEndereco() + "," + fornecedor.getCategoria()
-                        + "\n");
-            }
-
-            // Escreva os dados das categorias
-            int i = 0;
-            for (String categoria : categorias) {
-                writer.write("categoria," + categorias.get(i) + "\n");
-                i++;
-            }
-
-            writer.close();
-            System.out.println("Dados salvos com sucesso!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao salvar os dados.");
-        }
-    }
-
-    public static void carregarDados(List<Clientes> clientes, List<ProdutoEstoque> produtos,
-            List<Vendas> vendas, List<Fornecedores> fornecedores, ArrayList<String> categorias) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("dados.txt"));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length > 0) {
-                    String tipo = parts[0];
-                    switch (tipo) {
-                        case "cliente":
-                            int idCliente = Integer.parseInt(parts[1]);
-                            String nomeCliente = parts[2];
-                            String contato = parts[3];
-                            String endereco = parts[4];
-                            clientes.add(new Clientes(idCliente, nomeCliente, contato, endereco));
-                            break;
-                        case "produto":
-                            int idProduto = Integer.parseInt(parts[1]);
-                            String nomeProduto = parts[2];
-                            int qtdTotal = Integer.parseInt(parts[3]);
-                            double valorCompra = Double.parseDouble(parts[4]);
-                            String descricao = parts[5];
-                            String dataCompra = parts[6];
-                            produtos.add(new ProdutoEstoque(idProduto, nomeProduto, descricao, qtdTotal, valorCompra,
-                                    dataCompra));
-                            break;
-                        case "venda":
-                            int idVenda = Integer.parseInt(parts[1]);
-                            int idProdutoVenda = Integer.parseInt(parts[2]);
-                            String dataVenda = parts[3];
-                            int quantidadeVenda = Integer.parseInt(parts[4]);
-                            String nomeClienteVenda = parts[5];
-                            vendas.add(
-                                    new Vendas(idVenda, idProdutoVenda, dataVenda, quantidadeVenda, nomeClienteVenda));
-                            break;
-                        case "fornecedor":
-                            int idFornecedor = Integer.parseInt(parts[1]);
-                            String nomeFornecedor = parts[2];
-                            String contatoFornecedor = parts[3];
-                            String enderecoFornecedor = parts[4];
-                            String categoriaFornecedor = parts[5];
-                            fornecedores.add(new Fornecedores(idFornecedor, nomeFornecedor, contatoFornecedor,
-                                    enderecoFornecedor, categoriaFornecedor));
-                            break;
-                        case "categoria":
-                            String nomeCategoria = parts[1];
-                            categorias.add(nomeCategoria);
-                            break;
-                        default:
-                            // Tipo desconhecido, ignore
-                    }
-                }
-            }
-            reader.close();
-            System.out.println("Dados carregados com sucesso!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao carregar os dados.");
-        }
-    }
 }
