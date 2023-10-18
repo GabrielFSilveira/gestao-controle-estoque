@@ -10,11 +10,10 @@ import entidades.Fornecedores;
 import entidades.ProdutoEstoque;
 import entidades.Vendas;
 
-
 import dao.ClientesDAO;
 import dao.CategoriasDAO;
 import dao.FornecedoresDAO;
-
+import dao.ProdutoEstoqueDAO;
 
 public class Main {
 
@@ -23,6 +22,7 @@ public class Main {
         ClientesDAO clientesDAO = new ClientesDAO();
         CategoriasDAO categoriasDAO = new CategoriasDAO();
         FornecedoresDAO fornecedoresDAO = new FornecedoresDAO();
+        ProdutoEstoqueDAO produtoEstoqueDAO = new ProdutoEstoqueDAO();
 
         limparTela();
         List<Clientes> clientes = new ArrayList();
@@ -83,180 +83,19 @@ public class Main {
                     escolha = sc.nextInt();
                     switch (escolha) {
                         case 1:
-                            if (categorias.size() != 0) { // verifica se existe uma categoria
-                                minusculo = 's';
-                                do {
-                                    limparTela();
-
-                                    System.out.println("\nCategorias cadastradas: \nID\tNome"); // mostra as categorias
-                                                                                                // cadastradas
-                                    int i = 0;
-                                    for (String categoria : categorias) {
-                                        System.out.println(i + "\t" + categorias.get(i));
-                                        i++;
-                                    }
-
-                                    id = caractereInvalido(); // verifica se o caractere foi um inteiro ou uma string
-
-                                    sc.nextLine();
-
-                                    if (id >= 0 && id < categorias.size()) { // verifica se o id existe
-                                        
-                                        
-                                        System.out.printf("Nome do Produto: ");
-                                        nomeProduto = sc.nextLine();
-
-                                        descricao = categorias.get(id);
-
-                                        System.out.print("Quantidade em estoque: ");
-                                        qtdTotal = sc.nextInt();
-
-                                        System.out.print("Valor unitário do item: ");
-                                        valorCompra = sc.nextDouble();
-
-                                        sc.nextLine();
-                                        System.out.print("Data da compra DD/MM/AA: ");
-                                        dataCompra = sc.nextLine();
-
-                                        id = produtos.size();
-
-                                        ProdutoEstoque produto = new ProdutoEstoque(id, nomeProduto, descricao,
-                                                qtdTotal, valorCompra, dataCompra);
-
-                                        produto.adicionarProduto(produtos);
-                                        Thread.sleep(700);
-
-                                    } else {
-                                        categoriaInvalida();
-                                    }
-                                    limparTela();
-                                    ProdutoEstoque.mostrarProdutos(produtos);
-                                    System.out.print("\n\nDeseja cadastrar um novo produto (s/n): ");
-                                    alternativa = sc.next().charAt(0);
-                                    minusculo = Character.toLowerCase(alternativa);
-                                    minusculo = confirmandoCaractere(minusculo, alternativa); // metodo para fazer o
-                                                                                              // caractere ficar
-                                                                                              // minusculo e comparar de
-                                                                                              // m jeito mais pratico
-                                } while (minusculo == 's');
-                            } else {
-                                categoriaInvalida();
-                            }
+                            produtoEstoqueDAO.adicionarProduto();
                             break;
                         case 2:
-                            if (categorias.size() != 0) { // verifica se existe alguma categoria, caso não o programa
-                                                          // pede para criar primeiro
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    limparTela();
-                                    ProdutoEstoque.mostrarProdutos(produtos); // mostra todos os produtos
-                                    id = caractereInvalido();
-
-                                    if (id >= 0 && id < produtos.size()) { // verifica se existe o id
-                                        if (produtos.get(id) != null) {
-                                            limparTela();
-                                            System.out.println("1. Nome do produto");
-                                            System.out.println("2. Descrição do produto");
-                                            System.out.println("3. Quantidade em estoque: ");
-                                            System.out.println("4. Valor unitário: ");
-                                            System.out.println("5. Data da compra: ");
-                                            System.out.print("\nO que você quer editar: ");
-                                            int opcao = sc.nextInt();
-
-                                            if (opcao == 1 || opcao == 2 || opcao == 3 || opcao == 4 || opcao == 5) {
-                                                ProdutoEstoque.editarProduto(produtos, id, opcao);
-                                                System.out.print("\nDeseja editar outro produto (s/n): ");
-                                                alternativa = sc.next().charAt(0); // recebe o caractere
-                                                minusculo = Character.toLowerCase(alternativa);
-
-                                                minusculo = confirmandoCaractere(minusculo, alternativa); // compara o
-                                                                                                          // caractere
-                                            } else {
-                                                System.out.println("Opção invalida!!");
-                                            }
-                                        } else {
-                                            System.out.println("Opção invalida!");
-                                            System.out.print("\nDeseja editar outro produto (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        }
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-                            } else {
-                                produtoVazio();
-                            }
+                            produtoEstoqueDAO.editarProduto();
                             break;
                         case 3:
-                            if (produtos.size() != 0) { // se não existir produto o programa mostra erro
-                                limparTela();
-                                ProdutoEstoque.mostrarProdutos(produtos);
-                                System.out.print("\nDigite alguma tecla para sair : ");
-                                sc.next().charAt(0);
-                            } else {
-                                produtoVazio();
-                            }
+                            produtoEstoqueDAO.mostrarProduto();
                             break;
                         case 4:
-                            if (produtos.size() != 0) {
-                                minusculo = 's';
-                                while (minusculo == 's') {
-                                    int i = 0;
-                                    ProdutoEstoque.mostrarProdutos(produtos);
-
-                                    id = caractereInvalido();
-
-                                    if (id >= 0 && id < produtos.size()) {
-                                        
-                                            int ver = id;
-                                            i = 0;
-                                            for (ProdutoEstoque produto : produtos) { // percorre o array
-                                                if (i == id) {
-                                                    int guardaIdProduto = produto.getId();
-                                                    int armazena = produtos.get(guardaIdProduto).getQtdTotal();
-                                                    produtos.get(guardaIdProduto).setQtdTotal(armazena);
-                                                }else  if (i > id) {
-                                                    produto.setId(ver);
-                                                    ver++;
-                                                }
-                                                i++;
-                                            }
-                                            ProdutoEstoque.removerProduto(produtos, id);
-                                            limparTela();
-                                            ProdutoEstoque.mostrarProdutos(produtos);
-                                            System.out.print("\nDeseja remover outro produto (s/n): ");
-                                            alternativa = sc.next().charAt(0);
-                                            minusculo = Character.toLowerCase(alternativa);
-                                            minusculo = confirmandoCaractere(minusculo, alternativa);
-                                        
-                                    } else {
-                                        minusculo = 'n';
-                                        idInvalida();
-                                    }
-                                }
-                            } else {
-                                produtoVazio();
-                            }
+                            produtoEstoqueDAO.removerProduto();
                             break;
                         case 5:
-                            if (produtos.size() != 0) {
-                                limparTela();
-                                ProdutoEstoque.mostrarProdutos(produtos);
-                                int incrementarQuantidade;
-
-                                id = caractereInvalido();
-
-                                System.out.print("\nInforme a quantidade que será incrementada: ");
-                                incrementarQuantidade = sc.nextInt();
-
-                                ProdutoEstoque.incrementarProduto(produtos, id, incrementarQuantidade);
-                            } else {
-                                produtoVazio();
-                            }
+                            produtoEstoqueDAO.incrementarProduto();
                             break;
                         // Categorias
                         case 6:

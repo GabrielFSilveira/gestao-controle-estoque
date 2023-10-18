@@ -19,11 +19,11 @@ public class FornecedoresDAO {
         Scanner sc = new Scanner(System.in);
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
         System.out.print("Insira o nome: ");
-        String nomeFornecedor = sc.nextLine();
+        String nome = sc.nextLine();
         System.out.print("Insira o contato: ");
-        String contatoFornecedor = sc.nextLine();
+        String contato = sc.nextLine();
         System.out.print("Insira o endereço: ");
-        String enderecoFornecedor = sc.nextLine();
+        String endereco = sc.nextLine();
         System.out.println("Informe o ID da categoria: ");
         int idCategoria = sc.nextInt();
 
@@ -42,9 +42,9 @@ public class FornecedoresDAO {
             sql = "INSERT INTO fornecedores (id, nome, contato, endereco, categoria_id) VALUES (?,?,?,?,?)";
             PreparedStatement instrucao = conector.prepareStatement(sql);
             instrucao.setInt(1, novoId);
-            instrucao.setString(2, nomeFornecedor);
-            instrucao.setString(3, contatoFornecedor);
-            instrucao.setString(4, enderecoFornecedor);
+            instrucao.setString(2, nome);
+            instrucao.setString(3, contato);
+            instrucao.setString(4, endereco);
             instrucao.setInt(5, idCategoria);
             instrucao.executeUpdate();
 
