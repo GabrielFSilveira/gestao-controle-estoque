@@ -1,6 +1,5 @@
 package entidades;
-import java.util.List;
-import java.util.Scanner;
+
 
 public class Vendas {
     private int id;

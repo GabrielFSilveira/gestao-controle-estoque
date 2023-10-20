@@ -68,7 +68,7 @@ public class FornecedoresDAO {
         Scanner sc = new Scanner(System.in);
         limparTela();
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-        String sql = "SELECT id, nome, contato, endereco, categoria_id FROM fornecedores";
+        String sql = "SELECT id, nome, contato, endereco, categoria_id FROM fornecedores ORDER BY id";
 
         try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
@@ -103,7 +103,7 @@ public class FornecedoresDAO {
             int id = caractereInvalido();
             try {
                 PreparedStatement instrucao = conector.prepareStatement(sql);
-                sc.nextLine();
+                //sc.nextLine();
                 System.out.print("Informe o nome: ");
                 String nome = sc.nextLine();
                 System.out.print("Informe o contato: ");
@@ -168,7 +168,7 @@ public class FornecedoresDAO {
 
     public static void listarFornecedores() {
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-        String sql = "SELECT id, nome, contato, endereco, categoria_id FROM fornecedores";
+        String sql = "SELECT id, nome, contato, endereco, categoria_id FROM fornecedores ORDER BY id";
 
         try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
@@ -224,6 +224,8 @@ public class FornecedoresDAO {
         char confirmacao = minusculo;
         if (minusculo != 's' && minusculo != 'n') {
             do {
+                limparTela();
+                listarFornecedores();
                 System.out.println("\nCaractere invalido!!");
                 System.out.print("Deseja cadastrar um novo cliente (s/n): ");
                 alternativa = sc.next().charAt(0);

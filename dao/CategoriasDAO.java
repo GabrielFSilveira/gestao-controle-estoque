@@ -60,7 +60,7 @@ public class CategoriasDAO {
     public void listarCategorias() {
         limparTela();
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-        String sql = "SELECT id, nome FROM categorias";
+        String sql = "SELECT id, nome FROM categorias ORDER BY id";
 
         try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class CategoriasDAO {
         }
         limparTela();
         mostrarCategoria();
-        System.out.print("\n\nDeseja editar uma nova categoria (s/n): ");
+        System.out.print("\n\nDeseja editar uma outra categoria (s/n): ");
             alternativa = sc.next().charAt(0);
             minusculo = Character.toLowerCase(alternativa);
             minusculo = confirmandoCaractere(minusculo, alternativa);
@@ -144,7 +144,7 @@ public class CategoriasDAO {
     //METODOS
     public static void mostrarCategoria(){
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-           String sql = "SELECT id, nome FROM categorias";
+           String sql = "SELECT id, nome FROM categorias ORDER BY id";
           try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
             ResultSet resultado = instrucao.executeQuery();
@@ -194,6 +194,8 @@ public class CategoriasDAO {
         char confirmacao = minusculo;
         if (minusculo != 's' && minusculo != 'n') {
             do {
+                limparTela();
+                mostrarCategoria();
                 System.out.println("\nCaractere invalido!!");
                 System.out.print("Deseja cadastrar um novo cliente (s/n): ");
                 alternativa = sc.next().charAt(0);

@@ -1,14 +1,7 @@
 package src;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import entidades.Clientes;
-import entidades.Fornecedores;
-import entidades.ProdutoEstoque;
-import entidades.Vendas;
 
 import dao.ClientesDAO;
 import dao.CategoriasDAO;
@@ -246,117 +239,6 @@ public class Main {
 
     public static void opcaoInvalida() throws InterruptedException {
         System.out.print("Opção inválida, voltando ao menu em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static void idInvalida() throws InterruptedException {
-        System.out.print("Ninguem cadastrado com esse id, Voltando ao menu em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static int caractereInvalido() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("\nInforme o ID: ");
-        while (!sc.hasNextInt()) {
-            String input = sc.next();
-            System.out.print("\nInsira um número inteiro válido.");
-            System.out.print("\nInsira o id: ");
-        }
-        int valor = sc.nextInt();
-        return valor;
-    }
-
-    public static char confirmandoCaractere(char minusculo, char alternativa) {
-        Scanner sc = new Scanner(System.in);
-        char confirmacao = minusculo;
-        if (minusculo != 's' && minusculo != 'n') {
-            do {
-                System.out.println("\nCaractere invalido!!");
-                System.out.print("Deseja cadastrar um novo cliente (s/n): ");
-                alternativa = sc.next().charAt(0);
-                minusculo = Character.toLowerCase(alternativa);
-            } while (minusculo != 's' && minusculo != 'n');
-            confirmacao = minusculo;
-        }
-        return confirmacao;
-    }
-
-    public static void categoriaInvalida() throws InterruptedException {
-        System.out.print("Nenhuma categoria cadastrada, voltando em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static void produtoVazio() throws InterruptedException {
-        System.out.print("Nenhuma produto cadastrado, voltando em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static void produtoouclieteVazio() throws InterruptedException {
-        System.out.print("Fornecedor ou cliente não cadastrado, voltando em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static void clienteVazio() throws InterruptedException {
-        System.out.print("Nenhuma cliente cadastrado, voltando em");
-        System.out.print(" 3");
-        Thread.sleep(700);
-        System.out.print(" 2");
-        Thread.sleep(600);
-        System.out.print(" 1.");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-        System.out.print(".");
-        Thread.sleep(333);
-    }
-
-    public static void fornecedorVazio() throws InterruptedException {
-        System.out.print("Nenhum fornecedor cadastrado, voltando em");
         System.out.print(" 3");
         Thread.sleep(700);
         System.out.print(" 2");

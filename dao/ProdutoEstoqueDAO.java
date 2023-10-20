@@ -70,9 +70,10 @@ public class ProdutoEstoqueDAO {
     }
 
     public void mostrarProduto() {
+        limparTela();
         Scanner sc = new Scanner(System.in);
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-        String sql = "SELECT id, nome, categoria_id, quantidade_estoque, valor_unitario, data_compra FROM produtos";
+        String sql = "SELECT id, nome, categoria_id, quantidade_estoque, valor_unitario, data_compra FROM produtos ORDER BY id";
 
         try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
@@ -99,6 +100,8 @@ public class ProdutoEstoqueDAO {
 
     public void editarProduto() {
         do{
+            limparTela();
+            listaProdutos();
         Scanner sc = new Scanner(System.in);
         Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
         String sql = "UPDATE produtos SET nome = ?, categoria_id = ?, quantidade_estoque = ?, valor_unitario = ?, data_compra = ? WHERE id = ?";
@@ -114,6 +117,7 @@ public class ProdutoEstoqueDAO {
             int quantidadeEstoque = sc.nextInt();
             System.out.print("Valor unitário do produto: ");
             double valor = sc.nextDouble();
+            sc.nextLine();
             System.out.print("Informe a data da compra DD/MM/AAAA: ");
             String dataCompra = sc.nextLine();
             instrucao.setString(1, nome);
@@ -128,7 +132,7 @@ public class ProdutoEstoqueDAO {
         }
         limparTela();
             listaProdutos();
-            System.out.print("\n\nDeseja cadastrar um novo Fornecedor (s/n): ");
+            System.out.print("\n\nDeseja editar um novo Produto (s/n): ");
             alternativa = sc.next().charAt(0);
             minusculo = Character.toLowerCase(alternativa);
             minusculo = confirmandoCaractere(minusculo, alternativa);
@@ -161,7 +165,7 @@ public class ProdutoEstoqueDAO {
         }
             limparTela();
             listaProdutos();
-            System.out.print("\n\nDeseja cadastrar um novo Fornecedor (s/n): ");
+            System.out.print("\n\nDeseja remover um novo Produto (s/n): ");
             alternativa = sc.next().charAt(0);
             minusculo = Character.toLowerCase(alternativa);
             minusculo = confirmandoCaractere(minusculo, alternativa);
@@ -190,7 +194,7 @@ public class ProdutoEstoqueDAO {
         }
         limparTela();
         listaProdutos();
-        System.out.print("\n\nDeseja cadastrar um novo Fornecedor (s/n): ");
+        System.out.print("\n\nDeseja incrementar um novo Produto (s/n): ");
         alternativa = sc.next().charAt(0);
         minusculo = Character.toLowerCase(alternativa);
         minusculo = confirmandoCaractere(minusculo, alternativa);
@@ -203,7 +207,7 @@ public class ProdutoEstoqueDAO {
 
 public static void listaProdutos(){
     Connection conector = ConexaoBancoDeDados.getInstanciador().getConector();
-        String sql = "SELECT id, nome, categoria_id, quantidade_estoque, valor_unitario, data_compra FROM produtos";
+        String sql = "SELECT id, nome, categoria_id, quantidade_estoque, valor_unitario, data_compra FROM produtos ORDER BY id";
 
         try {
             PreparedStatement instrucao = conector.prepareStatement(sql);
@@ -260,6 +264,8 @@ public static char confirmandoCaractere(char minusculo, char alternativa) {
     char confirmacao = minusculo;
     if (minusculo != 's' && minusculo != 'n') {
         do {
+            limparTela();
+            listaProdutos();
             System.out.println("\nCaractere invalido!!");
             System.out.print("Deseja cadastrar um novo cliente (s/n): ");
             alternativa = sc.next().charAt(0);

@@ -18,19 +18,21 @@ public class ConexaoBancoDeDados {
             e.printStackTrace();
         }
     }
-
+    
+    // Verifica se ja existe conexão entre o banco de dados, ou seja, não permite que sejam abertas duas instâncias do banco de dados
     public static synchronized ConexaoBancoDeDados getInstanciador(){
         if(instanciador == null){
             instanciador = new ConexaoBancoDeDados();
         }
-
         return instanciador;
     }
 
+    // Cria a conexão com o banco de dados
     public Connection getConector(){
         return conector;
     }
 
+    // Fim da conexão com o banco de dados
     public void fecharConector(){
         if(conector != null){
             try {
